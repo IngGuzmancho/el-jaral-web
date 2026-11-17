@@ -8,7 +8,7 @@ import { ENTREGAS, ESTADOS, PAGOS, type OrderStatus } from "@/lib/types";
 const TEXTO_ALERTA: Record<string, string> = {
   no_disponible: "Este producto ya no está disponible (bloqueado o vendido).",
   pedido_duplicado: "Otro pedido pendiente pide este mismo animal.",
-  stock_insuficiente: "No alcanzan las dosis en stock para este pedido.",
+  stock_insuficiente: "No alcanza el stock para este pedido.",
 };
 
 export default async function PedidoDetalle({ params }: { params: Promise<{ id: string }> }) {

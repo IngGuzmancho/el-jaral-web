@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { AvailabilitySelect, PublishToggle } from "@/components/admin/RowControls";
 import StockAdjust from "@/components/admin/StockAdjust";
+import { unidades } from "@/lib/format";
 import type { Availability } from "@/lib/types";
 
 type Fila = {
@@ -11,6 +12,7 @@ type Fila = {
   price_usd: number;
   sale_mode: string;
   stock_qty: number;
+  unit_label: string;
   availability: Availability;
   published: boolean;
   categories: { name: string } | null;
@@ -20,7 +22,7 @@ export default async function ProductosPage() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("products")
-    .select("id,code,name,price_usd,sale_mode,stock_qty,availability,published,categories(name)")
+    .select("id,code,name,price_usd,sale_mode,stock_qty,unit_label,availability,published,categories(name)")
     .order("created_at", { ascending: false });
   const filas = (data ?? []) as unknown as Fila[];
 
@@ -60,7 +62,7 @@ export default async function ProductosPage() {
                   {p.sale_mode === "unidad" ? (
                     <AvailabilitySelect id={p.id} value={p.availability} />
                   ) : (
-                    <StockAdjust id={p.id} stock={p.stock_qty} />
+                    <StockAdjust id={p.id} stock={p.stock_qty} unidad={unidades(p).varios} />
                   )}
                 </td>
                 <td className="px-4 py-3">

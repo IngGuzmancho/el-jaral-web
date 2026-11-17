@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "./CartProvider";
-import { usd } from "@/lib/format";
+import { unidades, usd } from "@/lib/format";
 import type { Product } from "@/lib/types";
 
 export default function AddToCart({ p, disponible }: { p: Product; disponible: boolean }) {
   const { add, has } = useCart();
   const esSemen = p.sale_mode === "cantidad";
+  const u = unidades(p);
   const [qty, setQty] = useState(esSemen ? p.min_order : 1);
   const enPedido = has(p.id);
 
@@ -20,13 +21,13 @@ export default function AddToCart({ p, disponible }: { p: Product; disponible: b
     <div className="flex flex-col gap-4">
       {esSemen && (
         <div className="flex flex-wrap items-center gap-3">
-          <span className="text-sm font-semibold">Dosis</span>
+          <span className="text-sm font-semibold capitalize">{u.varios}</span>
           <div className="flex items-center rounded-sm border border-[#B9B29E] bg-white">
-            <button type="button" aria-label={`Restar ${p.order_step} dosis`} className="h-11 w-11 text-xl" onClick={() => setQty(Math.max(p.min_order, qty - p.order_step))}>−</button>
+            <button type="button" aria-label={`Restar ${p.order_step} ${u.varios}`} className="h-11 w-11 text-xl" onClick={() => setQty(Math.max(p.min_order, qty - p.order_step))}>−</button>
             <span className="min-w-14 text-center font-semibold">{qty}</span>
-            <button type="button" aria-label={`Sumar ${p.order_step} dosis`} className="h-11 w-11 text-xl" onClick={() => setQty(Math.min(p.stock_qty, qty + p.order_step))}>+</button>
+            <button type="button" aria-label={`Sumar ${p.order_step} ${u.varios}`} className="h-11 w-11 text-xl" onClick={() => setQty(Math.min(p.stock_qty, qty + p.order_step))}>+</button>
           </div>
-          <span className="text-sm text-[#565B50]">Pedido mínimo: {p.min_order} dosis · Subtotal {usd(qty * Number(p.price_usd))}</span>
+          <span className="text-sm text-[#565B50]">Pedido mínimo: {p.min_order} {u.varios} · Subtotal {usd(qty * Number(p.price_usd))}</span>
         </div>
       )}
       <div className="flex flex-wrap gap-3">

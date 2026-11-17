@@ -14,8 +14,18 @@ export default function Footer() {
         <div className="text-sm">
           <p className="font-semibold text-white">Catálogo</p>
           <ul className="mt-2 space-y-1">
-            <li><Link href="/catalogo?cat=toros-reproductores" className="hover:text-naranja">Toros reproductores</Link></li>
-            <li><Link href="/catalogo?cat=genetica-semen" className="hover:text-naranja">Genética · Semen</Link></li>
+            <li><Link href="/catalogo?cat=toros-reproductores" className="hover:text-naranja">Toros</Link></li>
+            <li><Link href="/catalogo?cat=matrices" className="hover:text-naranja">Matrices</Link></li>
+            <li><Link href="/catalogo?cat=genetica-semen" className="hover:text-naranja">Semen</Link></li>
+            <li><Link href="/catalogo?cat=embriones" className="hover:text-naranja">Embriones</Link></li>
+          </ul>
+        </div>
+        <div className="text-sm">
+          <p className="font-semibold text-white">Historia</p>
+          <ul className="mt-2 space-y-1">
+            <li><Link href="/historia/quienes-somos" className="hover:text-naranja">Quiénes somos</Link></li>
+            <li><Link href="/historia/trayectoria" className="hover:text-naranja">Trayectoria</Link></li>
+            <li><Link href="/historia/mision-vision-objetivos" className="hover:text-naranja">Misión, visión y objetivos</Link></li>
           </ul>
         </div>
         <div className="text-sm">

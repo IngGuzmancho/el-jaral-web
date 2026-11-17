@@ -42,7 +42,7 @@ export default function OrderActions({ id, status, total, pagado }: { id: string
             <button
               disabled={busy}
               className={`${btn} bg-verde text-white`}
-              onClick={() => confirm("Al confirmar, los toros del pedido quedan BLOQUEADOS y las dosis se descuentan del stock. ¿Confirmar?") && run(() => supabase.rpc("confirm_order", { p_order_id: id }))}
+              onClick={() => confirm("Al confirmar, los animales del pedido quedan BLOQUEADOS y las dosis o embriones se descuentan del stock. ¿Confirmar?") && run(() => supabase.rpc("confirm_order", { p_order_id: id }))}
             >
               Confirmar pedido
             </button>

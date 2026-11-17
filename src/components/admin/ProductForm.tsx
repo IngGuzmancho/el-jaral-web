@@ -33,7 +33,8 @@ export default function ProductForm({ categories, definitions, product, images =
   const [commercial, setCommercial] = useState(product?.commercial_info ?? "");
   const [featured, setFeatured] = useState(product?.featured ?? false);
   const [published, setPublished] = useState(product?.published ?? false);
-  const unitLabel = product?.unit_label ?? "";
+  const esEmbrion = category?.slug === "embriones";
+  const nombreUnidad = esEmbrion ? "embriones" : "dosis";
   const [stock, setStock] = useState(String(product?.stock_qty ?? (modo === "unidad" ? 1 : 0)));
   const [minOrder, setMinOrder] = useState(String(product?.min_order ?? 1));
   const [step, setStep] = useState(String(product?.order_step ?? 1));
@@ -86,7 +87,7 @@ export default function ProductForm({ categories, definitions, product, images =
       commercial_info: commercial,
       sale_mode: modo,
       price_usd: Number(price),
-      unit_label: unitLabel || (modo === "unidad" ? "por ejemplar" : "por dosis"),
+      unit_label: modo === "unidad" ? "por ejemplar" : esEmbrion ? "por embrión" : "por dosis",
       stock_qty: modo === "unidad" ? 1 : Number(stock),
       min_order: modo === "unidad" ? 1 : Number(minOrder),
       order_step: modo === "unidad" ? 1 : Number(step),
@@ -185,23 +186,23 @@ export default function ProductForm({ categories, definitions, product, images =
             <input className={input} required value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div>
-            <label className={label}>Precio en dólares (USD) {modo === "cantidad" && "· por dosis"}</label>
+            <label className={label}>Precio en dólares (USD) {modo === "cantidad" && `· por ${esEmbrion ? "embrión" : "dosis"}`}</label>
             <input className={input} type="number" step="0.01" min="0" required value={price} onChange={(e) => setPrice(e.target.value)} />
           </div>
           {modo === "cantidad" && (
             <>
               {!editando && (
                 <div>
-                  <label className={label}>Dosis en stock</label>
+                  <label className={label}>Stock inicial ({nombreUnidad})</label>
                   <input className={input} type="number" min="0" value={stock} onChange={(e) => setStock(e.target.value)} />
                 </div>
               )}
               <div>
-                <label className={label}>Pedido mínimo (dosis)</label>
+                <label className={label}>Pedido mínimo ({nombreUnidad})</label>
                 <input className={input} type="number" min="1" value={minOrder} onChange={(e) => setMinOrder(e.target.value)} />
               </div>
               <div>
-                <label className={label}>Se vende de a (dosis)</label>
+                <label className={label}>Se vende de a ({nombreUnidad})</label>
                 <input className={input} type="number" min="1" value={step} onChange={(e) => setStep(e.target.value)} />
               </div>
             </>
@@ -226,7 +227,7 @@ export default function ProductForm({ categories, definitions, product, images =
           </label>
         </div>
         {editando && modo === "cantidad" && (
-          <p className="mt-3 text-xs text-neutral-500">El stock de dosis se ajusta desde la lista de productos, así queda registrado en el historial.</p>
+          <p className="mt-3 text-xs text-neutral-500">El stock se ajusta desde la lista de productos, así queda registrado en el historial.</p>
         )}
       </section>
 

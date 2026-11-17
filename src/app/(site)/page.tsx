@@ -19,7 +19,7 @@ async function Contenido() {
               key={c.id}
               href={`/catalogo?cat=${c.slug}`}
               className={`flex min-h-64 flex-col gap-3 p-9 transition hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(10,10,10,.16)] ${
-                i % 2 === 0 ? "bg-verde-oscuro text-white" : "bg-naranja text-[#1A1408]"
+                (i + Math.floor(i / 2)) % 2 === 0 ? "bg-verde-oscuro text-white" : "bg-naranja text-[#1A1408]"
               }`}
             >
               <span className="text-[13px] font-semibold uppercase tracking-[0.16em]">0{i + 1} · Categoría</span>

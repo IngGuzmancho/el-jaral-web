@@ -32,6 +32,9 @@ async function Gate({ children }: { children: React.ReactNode }) {
               <Link href="/admin/productos" className="hover:text-naranja">
                 Productos
               </Link>
+              <Link href="/admin/paginas" className="hover:text-naranja">
+                Páginas
+              </Link>
             </nav>
           </div>
           <div className="flex items-center gap-4">
