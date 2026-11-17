@@ -50,3 +50,18 @@ export interface ProductImage {
   is_cover: boolean;
   sort_order: number;
 }
+
+export type OrderStatus = "pendiente" | "en_revision" | "confirmado" | "en_preparacion" | "despachado" | "entregado" | "cancelado";
+
+export const ESTADOS: Record<OrderStatus, string> = {
+  pendiente: "Pendiente",
+  en_revision: "En revisión",
+  confirmado: "Confirmado",
+  en_preparacion: "En preparación",
+  despachado: "Despachado",
+  entregado: "Entregado",
+  cancelado: "Cancelado",
+};
+
+export const PAGOS: Record<string, string> = { sin_pago: "Sin pago", anticipo: "Anticipo", pagado: "Pagado" };
+export const ENTREGAS: Record<string, string> = { retiro: "Retiro en el establecimiento", entrega: "Entrega coordinada por El Jaral", transporte: "Lo recoge su transportista" };

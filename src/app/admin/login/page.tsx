@@ -22,7 +22,7 @@ export default function LoginPage() {
       setLoading(false);
       return;
     }
-    router.replace("/admin/productos");
+    router.replace("/admin/pedidos");
     router.refresh();
   }
 

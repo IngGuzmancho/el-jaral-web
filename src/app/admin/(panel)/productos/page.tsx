@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { AvailabilitySelect, PublishToggle } from "@/components/admin/RowControls";
+import StockAdjust from "@/components/admin/StockAdjust";
 import type { Availability } from "@/lib/types";
 
 type Fila = {
@@ -59,7 +60,7 @@ export default async function ProductosPage() {
                   {p.sale_mode === "unidad" ? (
                     <AvailabilitySelect id={p.id} value={p.availability} />
                   ) : (
-                    <span>{p.stock_qty} dosis</span>
+                    <StockAdjust id={p.id} stock={p.stock_qty} />
                   )}
                 </td>
                 <td className="px-4 py-3">

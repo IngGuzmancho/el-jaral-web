@@ -26,6 +26,9 @@ async function Gate({ children }: { children: React.ReactNode }) {
               El Jaral <span className="text-naranja">· Panel</span>
             </span>
             <nav className="flex gap-5 text-sm">
+              <Link href="/admin/pedidos" className="hover:text-naranja">
+                Pedidos
+              </Link>
               <Link href="/admin/productos" className="hover:text-naranja">
                 Productos
               </Link>
