@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useCart } from "./CartProvider";
 import { usd } from "@/lib/format";
@@ -17,6 +17,11 @@ export default function PedidoForm() {
   const [error, setError] = useState("");
   const [f, setF] = useState({ full_name: "", doc_id: "", phone: "", email: "", department: "Santa Cruz", city: "", address: "" });
   const [entrega, setEntrega] = useState("retiro");
+  const [trampa, setTrampa] = useState("");
+  const inicio = useRef(0);
+  useEffect(() => {
+    inicio.current = Date.now();
+  }, []);
 
   if (lines.length === 0) {
     return (
@@ -30,6 +35,16 @@ export default function PedidoForm() {
   async function enviar(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+    // Anti-spam: un robot completa el campo oculto o envía en menos de 3 segundos
+    if (trampa) {
+      clear();
+      router.push("/pedido/gracias");
+      return;
+    }
+    if (Date.now() - inicio.current < 3000) {
+      setError("Revisá tus datos un momento y volvé a tocar “Enviar pedido”.");
+      return;
+    }
     setEnviando(true);
     const { data, error } = await createClient().rpc("create_order", {
       p_customer: f,
@@ -117,6 +132,11 @@ export default function PedidoForm() {
         </fieldset>
       </section>
 
+      <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label>No completar este campo
+          <input tabIndex={-1} autoComplete="off" value={trampa} onChange={(e) => setTrampa(e.target.value)} />
+        </label>
+      </div>
       <p className="rounded-sm bg-[#F0EADC] p-4 text-sm text-[#565B50]">
         Al enviar, tu pedido queda <strong>pendiente de confirmación</strong>. No se cobra nada en el sitio: el equipo de El Jaral te escribe por WhatsApp para confirmar disponibilidad, pago y entrega. Enviar el pedido no reserva el animal hasta que lo confirmemos.
       </p>

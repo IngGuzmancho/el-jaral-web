@@ -29,6 +29,9 @@ async function Gate({ children }: { children: React.ReactNode }) {
               <Link href="/admin/pedidos" className="hover:text-naranja">
                 Pedidos
               </Link>
+              <Link href="/admin/clientes" className="hover:text-naranja">
+                Clientes
+              </Link>
               <Link href="/admin/productos" className="hover:text-naranja">
                 Productos
               </Link>
