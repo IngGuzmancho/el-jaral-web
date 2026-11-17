@@ -28,3 +28,25 @@ export interface Product {
   genetics: Record<string, unknown>;
   commercial_info: string;
 }
+
+export interface AttributeDefinition {
+  id: string;
+  category_id: string;
+  key: string;
+  label: string;
+  data_type: "text" | "longtext" | "number" | "date" | "list";
+  unit: string | null;
+  options: string[] | null;
+  required: boolean;
+  filterable: boolean;
+  sort_order: number;
+}
+
+export interface ProductImage {
+  id: string;
+  product_id: string;
+  path: string;
+  alt: string;
+  is_cover: boolean;
+  sort_order: number;
+}
