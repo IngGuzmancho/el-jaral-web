@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+:root {
+  --negro: #0a0a0a;
+  --verde-oscuro: #14471f;
+  --verde: #2e9e3a;
+  --naranja: #f28c1e;
+}
+
+@theme inline {
+  --color-negro: var(--negro);
+  --color-verde-oscuro: var(--verde-oscuro);
+  --color-verde: var(--verde);
+  --color-naranja: var(--naranja);
+  --font-sans: "Barlow", system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Barlow", sans-serif;
+}
+
+body {
+  background: #fff;
+  color: var(--negro);
+  font-family: var(--font-sans);
+}
